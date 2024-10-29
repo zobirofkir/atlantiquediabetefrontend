@@ -54,14 +54,14 @@ const DashboardScreen = () => {
     doc.setFont("helvetica", "normal");
     
     const details = [
-      { label: 'Name:', value: `${item.first_name} ${item.last_name}` },
-      { label: 'City:', value: item.city },
-      { label: 'Speciality:', value: item.speciality },
-      { label: 'Phone:', value: item.phone },
-      { label: 'Email:', value: item.email },
+      { label: 'Nom:', value: `${item.first_name} ${item.last_name}` },
+      { label: 'Ville:', value: item.city },
+      { label: 'Spécialité:', value: item.speciality },
+      { label: 'Téléphone:', value: item.phone },
+      { label: 'E-mail:', value: item.email },
       { label: 'Participation en présentiel ? :', value: item.in_person ? 'Yes' : 'No' },
       { label: '', value: '', break: true },
-      { label: "Attestation nécessaire ? :", value: item.certificate ? 'Yes' : 'No' },
+      { label: "Attestationné nécessaire ? :", value: item.certificate ? 'Yes' : 'No' },
       { label: '', value: '', break: true },
     ];
   
