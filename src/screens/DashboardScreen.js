@@ -33,7 +33,7 @@ const DashboardScreen = () => {
     } else {
       fetchData();
     }
-  }, [navigate]);
+  }, [navigate]); 
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
