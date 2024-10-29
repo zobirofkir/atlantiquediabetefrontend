@@ -1,9 +1,13 @@
 import React from 'react';
 
 const FooterComponent = () => {
+  const name = localStorage.getItem('name');
+  
   return (
-    <div className="container mx-auto p-4 text-center">
-      <p className="text-sm">&copy; 2024 SMD. All rights reserved.</p>
+    <div className="text-center bg-gradient-to-r from-blue-500 to-blue-600 w-full">
+      <p className="text-xl text-center py-4 text-white font-bold tracking-wide">
+        &copy; 2024 { name ?? 'Société Marocaine de Diabétologie' }. All rights reserved.
+      </p>
     </div>
   );
 };

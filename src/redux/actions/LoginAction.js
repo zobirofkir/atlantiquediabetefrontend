@@ -25,6 +25,7 @@ export const LoginAction = (email, password) => {
             const response = await axios.post(`${process.env.REACT_APP_BACKEND_APP_URL}/api/auth/login`, { email, password });
             const data = response.data.data;
             localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('name', data.name);
             window.location.href = '/dashboard';
             dispatch(loginSuccess(data));
         } catch (error) {
