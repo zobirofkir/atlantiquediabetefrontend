@@ -1,40 +1,26 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
+import { inscriptionAction } from '../redux/actions/InscriptionAction';
+import { useDispatch, useSelector } from "react-redux";
 
-const DashboardScreen = () => {
+const DashboardScreen = () => { 
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BACKEND_APP_URL}/api/inscriptions`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
-      setData(response.data.data);
-    } catch (err) {
-      console.error(err);
-      setError('Failed to fetch data. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data, loading, error } = useSelector((state) => state.inscription);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
+
     if (!accessToken) {
       navigate('/');
     } else {
-      fetchData();
+      dispatch(inscriptionAction());
     }
-  }, [navigate]);
+  }, [navigate, dispatch]);
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
