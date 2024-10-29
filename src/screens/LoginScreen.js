@@ -1,24 +1,22 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { LoginAction } from '../redux/actions/LoginAction';
+
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
 
-  const handleLogin = async (e) => {
+  const dispatch = useDispatch();
+  const {error} = useSelector((state) => state.login)
+
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    const user = { email, password };
-
-    try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_APP_URL}/api/auth/login`, user);
-      localStorage.setItem('accessToken', response.data.data.accessToken);
-      window.location.href = '/dashboard';
-    } catch (err) {
-      setError('Login failed. Please check your credentials.');
-    }
+    dispatch(LoginAction(email, password));
   };
+
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-blue-600 md:px-0 px-2">
