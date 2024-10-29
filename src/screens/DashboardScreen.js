@@ -122,18 +122,18 @@ const DashboardScreen = () => {
             <p className='text-gray-600'><strong>In-person Participation:</strong> {item.in_person ? 'Yes' : 'No'}</p>
             <p className='text-gray-600'><strong>Certificate Needed:</strong> {item.certificate ? 'Yes' : 'No'} </p>
 
-            <div className='flex mt-4'>
+            <div className='flex justify-between mt-4'>
               <button
                 onClick={() => generatePDFForItem(item)}
-                className='bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-blue-600 transition duration-200 mr-2'
+                className='bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-blue-600 transition duration-200 mr-2 flex items-center'
               >
-                Download as PDF
+                <strong>PDF</strong> <i class="fa-solid fa-file-pdf fa-fade text-2xl mx-2"></i>
               </button>
               <button
                 onClick={() => exportToExcelForItem(item)}
-                className='bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-green-600 transition duration-200'
+                className='bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-green-600 transition duration-200 flex items-center'
               >
-                Export to Excel
+                <strong>EXCEL</strong> <i class="fa-solid fa-table fa-fade text-2xl mx-2"></i>
               </button>
             </div>
           </div>
