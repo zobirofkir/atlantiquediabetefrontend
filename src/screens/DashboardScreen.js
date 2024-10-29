@@ -63,7 +63,7 @@ const DashboardScreen = () => {
     doc.text('Inscription Details', 10, 10);
     
     doc.setFontSize(12);
-    doc.text('', 10, 15); 
+    doc.text('', 10, 15);
   
     doc.setFont("helvetica", "normal");
     
@@ -82,8 +82,8 @@ const DashboardScreen = () => {
       doc.setFont("helvetica", "bold");
       doc.text(detail.label, 10, yPosition);
       doc.setFont("helvetica", "normal");
-      doc.text(detail.value, 50, yPosition);
-      yPosition += 10; 
+      doc.text(detail.value, 70, yPosition);
+      yPosition += 10;
     });
   
     doc.setFontSize(10);
@@ -93,7 +93,7 @@ const DashboardScreen = () => {
   
     doc.save(`${item.first_name}_${item.last_name}_Details.pdf`);
   };
-  
+    
   return (
     <div className='container mx-auto py-12 px-6'>
       {/* Header */}
