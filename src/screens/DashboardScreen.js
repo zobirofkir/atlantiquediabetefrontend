@@ -123,7 +123,7 @@ const DashboardScreen = () => {
                   onClick={handleLogout}
                   className='w-full py-2 text-center text-red-600 hover:bg-red-100'
                 >
-                  Oui, déconnectez-vous
+                  Oui
                 </button>
                 <button
                   onClick={toggleDropdown}
