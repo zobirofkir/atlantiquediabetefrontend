@@ -73,8 +73,10 @@ const DashboardScreen = () => {
       { label: 'Speciality:', value: item.speciality },
       { label: 'Phone:', value: item.phone },
       { label: 'Email:', value: item.email },
-      { label: 'In-person Participation:', value: item.in_person ? 'Yes' : 'No' },
-      { label: 'Certificate Needed:', value: item.certificate ? 'Yes' : 'No' },
+      { label: 'Participation en présentiel ? :', value: item.in_person ? 'Yes' : 'No' },
+      { label: '', value: '', break: true },
+      { label: "Attestation nécessaire ? :", value: item.certificate ? 'Yes' : 'No' },
+      { label: '', value: '', break: true },
     ];
   
     let yPosition = 30;
@@ -83,7 +85,12 @@ const DashboardScreen = () => {
       doc.text(detail.label, 10, yPosition);
       doc.setFont("helvetica", "normal");
       doc.text(detail.value, 70, yPosition);
-      yPosition += 10;
+      
+      if (detail.break) {
+        yPosition += 15;
+      } else {
+        yPosition += 10;
+      }
     });
   
     doc.setFontSize(10);
@@ -93,7 +100,7 @@ const DashboardScreen = () => {
   
     doc.save(`${item.first_name}_${item.last_name}_Details.pdf`);
   };
-    
+      
   return (
     <div className='container mx-auto py-12 px-6'>
       {/* Header */}
