@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
+import * as XLSX from 'xlsx';
 
 const DashboardScreen = () => {
   const navigate = useNavigate();
@@ -42,6 +43,17 @@ const DashboardScreen = () => {
 
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
+  };
+
+  // Function to generate an Excel file for each individual item
+  const exportToExcelForItem = (item) => {
+    const worksheetData = [
+      { Name: `${item.first_name} ${item.last_name}`, City: item.city, Speciality: item.speciality, Phone: item.phone, Email: item.email, InPersonParticipation: item.in_person ? 'Yes' : 'No', CertificateNeeded: item.certificate ? 'Yes' : 'No' },
+    ];
+    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Inscription Details');
+    XLSX.writeFile(workbook, `${item.first_name}_${item.last_name}_Details.xlsx`);
   };
 
   // Function to generate a PDF for each cart item
@@ -110,12 +122,20 @@ const DashboardScreen = () => {
             <p className='text-gray-600'><strong>In-person Participation:</strong> {item.in_person ? 'Yes' : 'No'}</p>
             <p className='text-gray-600'><strong>Certificate Needed:</strong> {item.certificate ? 'Yes' : 'No'} </p>
 
-            <button
-              onClick={() => generatePDFForItem(item)}
-              className='bg-blue-500 text-white mt-4 py-2 px-4 rounded-lg shadow-lg hover:bg-blue-600 transition duration-200'
-            >
-              Download as PDF
-            </button>
+            <div className='flex mt-4'>
+              <button
+                onClick={() => generatePDFForItem(item)}
+                className='bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-blue-600 transition duration-200 mr-2'
+              >
+                Download as PDF
+              </button>
+              <button
+                onClick={() => exportToExcelForItem(item)}
+                className='bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-green-600 transition duration-200'
+              >
+                Export to Excel
+              </button>
+            </div>
           </div>
         ))}
       </div>
