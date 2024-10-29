@@ -105,7 +105,7 @@ const DashboardScreen = () => {
     <div className='container mx-auto py-12 px-6'>
       {/* Header */}
       <header className='flex justify-between items-center bg-gray-800 p-5 rounded-lg shadow-md text-white'>
-        <h1 className='text-xl font-bold'>Dashboard</h1>
+        <h1 className='text-xl font-bold'>Tableau de bord</h1>
         <div className='relative'>
           <button
             onClick={toggleDropdown}
@@ -116,20 +116,20 @@ const DashboardScreen = () => {
           {dropdownOpen && (
             <div className='absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10'>
               <div className='py-3 px-4 text-gray-800 text-sm'>
-                <p>Are you sure you want to log out?</p>
+                <p>Etes-vous certains de vouloir vous déconnecter?</p>
               </div>
               <div className='flex border-t border-gray-200'>
                 <button
                   onClick={handleLogout}
                   className='w-full py-2 text-center text-red-600 hover:bg-red-100'
                 >
-                  Yes, Log out
+                  Oui, déconnectez-vous
                 </button>
                 <button
                   onClick={toggleDropdown}
                   className='w-full py-2 text-center text-gray-600 hover:bg-gray-100'
                 >
-                  Cancel
+                  Annuler
                 </button>
               </div>
             </div>
@@ -144,12 +144,12 @@ const DashboardScreen = () => {
         {data.map((item) => (
           <div key={item.id} className='bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl border border-gray-200'>
             <h2 className='text-2xl font-semibold mb-3 text-gray-800'>{item.first_name} {item.last_name}</h2>
-            <p className='text-gray-600'><strong>City:</strong> {item.city}</p>
-            <p className='text-gray-600'><strong>Speciality:</strong> {item.speciality}</p>
-            <p className='text-gray-600'><strong>Phone:</strong> {item.phone}</p>
-            <p className='text-gray-600'><strong>Email:</strong> {item.email}</p>
-            <p className='text-gray-600'><strong>In-person Participation:</strong> {item.in_person ? 'Yes' : 'No'}</p>
-            <p className='text-gray-600'><strong>Certificate Needed:</strong> {item.certificate ? 'Yes' : 'No'}</p>
+            <p className='text-gray-600'><strong>Ville:</strong> {item.city}</p>
+            <p className='text-gray-600'><strong>Spécialité:</strong> {item.speciality}</p>
+            <p className='text-gray-600'><strong>Téléphone:</strong> {item.phone}</p>
+            <p className='text-gray-600'><strong>E-mail:</strong> {item.email}</p>
+            <p className='text-gray-600'><strong>Participation en présentiel ?:</strong> {item.in_person ? 'Yes' : 'No'}</p>
+            <p className='text-gray-600'><strong>Attestation nécessaire ?:</strong> {item.certificate ? 'Yes' : 'No'}</p>
 
             <div className='flex justify-between mt-4'>
               <button
