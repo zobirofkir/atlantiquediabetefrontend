@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { LoginAction } from '../redux/actions/LoginAction';
 
@@ -6,6 +6,7 @@ import { LoginAction } from '../redux/actions/LoginAction';
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const token = localStorage.getItem('accessToken');
 
   const dispatch = useDispatch();
   const {error} = useSelector((state) => state.login)
@@ -15,6 +16,12 @@ const LoginScreen = () => {
 
     dispatch(LoginAction(email, password));
   };
+
+  useEffect(() => {
+    if (token) {
+      window.location.href = '/dashboard';
+    }
+  })
 
 
 
