@@ -119,6 +119,23 @@ const DashboardScreen = () => {
     doc.save('Inscriptions_List.pdf');
   };
 
+  const exportAllInscriptionsToExcel = () => {
+    const worksheetData = data.map(item => ({
+      Name: `${item.first_name} ${item.last_name}`,
+      City: item.city,
+      Speciality: item.speciality,
+      Phone: item.phone,
+      Email: item.email,
+      InPersonParticipation: item.in_person ? 'Yes' : 'No',
+      CertificateNeeded: item.certificate ? 'Yes' : 'No',
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Inscriptions List');
+    XLSX.writeFile(workbook, 'Inscriptions_List.xlsx');
+  };
+
   return (
     <div className='container mx-auto py-12 px-6'>
       {/* Header */}
@@ -155,13 +172,19 @@ const DashboardScreen = () => {
         </div>
       </header>
 
-      {/* Export All PDF Button */}
-      <div className="flex justify-end mt-8">
+      {/* Export Buttons */}
+      <div className="flex justify-end mt-8 gap-4">
         <button
           onClick={exportAllInscriptionsToPDF}
           className='bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition duration-200 flex items-center'
         >
           <strong>Export All to PDF</strong> <i className="fa-solid fa-file-pdf fa-fade text-lg mx-2"></i>
+        </button>
+        <button
+          onClick={exportAllInscriptionsToExcel}
+          className='bg-green-500 text-white py-2 px-4 rounded-lg shadow hover:bg-green-600 transition duration-200 flex items-center'
+        >
+          <strong>Export All to Excel</strong> <i className="fa-solid fa-table fa-fade text-lg mx-2"></i>
         </button>
       </div>
 
