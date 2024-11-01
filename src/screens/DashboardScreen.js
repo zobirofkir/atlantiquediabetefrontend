@@ -178,13 +178,13 @@ const DashboardScreen = () => {
           onClick={exportAllInscriptionsToPDF}
           className='bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition duration-200 flex items-center'
         >
-          <strong>Export All to PDF</strong> <i className="fa-solid fa-file-pdf fa-fade text-lg mx-2"></i>
+          <strong>PDF Export</strong> <i className="fa-solid fa-file-pdf fa-fade text-lg mx-2"></i>
         </button>
         <button
           onClick={exportAllInscriptionsToExcel}
           className='bg-green-500 text-white py-2 px-4 rounded-lg shadow hover:bg-green-600 transition duration-200 flex items-center'
         >
-          <strong>Export All to Excel</strong> <i className="fa-solid fa-table fa-fade text-lg mx-2"></i>
+          <strong>Excel Export</strong> <i className="fa-solid fa-table fa-fade text-lg mx-2"></i>
         </button>
       </div>
 
