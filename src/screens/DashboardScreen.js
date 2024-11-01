@@ -60,9 +60,7 @@ const DashboardScreen = () => {
       { label: 'Téléphone:', value: item.phone },
       { label: 'E-mail:', value: item.email },
       { label: 'Participation en présentiel ? :', value: item.in_person ? 'Yes' : 'No' },
-      { label: '', value: '', break: true },
       { label: "Attestationné nécessaire ? :", value: item.certificate ? 'Yes' : 'No' },
-      { label: '', value: '', break: true },
     ];
   
     let yPosition = 30;
@@ -71,12 +69,7 @@ const DashboardScreen = () => {
       doc.text(detail.label, 10, yPosition);
       doc.setFont("helvetica", "normal");
       doc.text(detail.value, 70, yPosition);
-      
-      if (detail.break) {
-        yPosition += 15;
-      } else {
-        yPosition += 10;
-      }
+      yPosition += 10;
     });
   
     doc.setFontSize(10);
@@ -87,6 +80,45 @@ const DashboardScreen = () => {
     doc.save(`${item.first_name}_${item.last_name}_Details.pdf`);
   };
       
+  const exportAllInscriptionsToPDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.setFont("helvetica", "bold");
+    doc.text('Inscriptions List', 10, 10);
+
+    let yPosition = 20;
+    data.forEach((item, index) => {
+      doc.setFontSize(14);
+      doc.text(`${index + 1}. ${item.first_name} ${item.last_name}`, 10, yPosition);
+      yPosition += 10;
+
+      const details = [
+        { label: 'Ville:', value: item.city },
+        { label: 'Spécialité:', value: item.speciality },
+        { label: 'Téléphone:', value: item.phone },
+        { label: 'E-mail:', value: item.email },
+        { label: 'Participation en présentiel ? :', value: item.in_person ? 'Yes' : 'No' },
+        { label: "Attestation nécessaire ? :", value: item.certificate ? 'Yes' : 'No' },
+      ];
+
+      details.forEach(detail => {
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "normal");
+        doc.text(`${detail.label} ${detail.value}`, 20, yPosition);
+        yPosition += 8;
+      });
+
+      yPosition += 10;
+      if (yPosition > 280) { // Move to the next page if space is exhausted
+        doc.addPage();
+        yPosition = 20;
+      }
+    });
+
+    doc.save('Inscriptions_List.pdf');
+  };
+
   return (
     <div className='container mx-auto py-12 px-6'>
       {/* Header */}
@@ -122,6 +154,16 @@ const DashboardScreen = () => {
           )}
         </div>
       </header>
+
+      {/* Export All PDF Button */}
+      <div className="flex justify-end mt-8">
+        <button
+          onClick={exportAllInscriptionsToPDF}
+          className='bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition duration-200 flex items-center'
+        >
+          <strong>Export All to PDF</strong> <i className="fa-solid fa-file-pdf fa-fade text-lg mx-2"></i>
+        </button>
+      </div>
 
       {/* Cards List */}
       <div className='grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 px-4'>
