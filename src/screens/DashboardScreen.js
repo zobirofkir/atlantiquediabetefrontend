@@ -173,7 +173,7 @@ const DashboardScreen = () => {
       </header>
 
       {/* Export Buttons */}
-      <div className="flex justify-end mt-8 gap-4">
+      <div className="flex md:justify-end justify-center mt-8 gap-4 ">
         <button
           onClick={exportAllInscriptionsToPDF}
           className='bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition duration-200 flex items-center'
