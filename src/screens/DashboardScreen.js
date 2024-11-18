@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 const DashboardScreen = () => { 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState('');  // State for search term
 
   const { data, loading, error } = useSelector((state) => state.inscription);
 
@@ -20,6 +21,16 @@ const DashboardScreen = () => {
       dispatch(inscriptionAction());
     }
   }, [navigate, dispatch]);
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Filter data based on search term
+  const filteredData = data.filter((item) =>
+    `${item.first_name} ${item.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const exportToExcelForItem = (item) => {
     const worksheetData = [
@@ -73,7 +84,7 @@ const DashboardScreen = () => {
     doc.text('Inscriptions List', 10, 10);
 
     let yPosition = 20;
-    data.forEach((item, index) => {
+    filteredData.forEach((item, index) => {
       doc.setFontSize(14);
       doc.text(`${index + 1}. ${item.first_name} ${item.last_name}`, 10, yPosition);
       yPosition += 10;
@@ -105,7 +116,7 @@ const DashboardScreen = () => {
   };
 
   const exportAllInscriptionsToExcel = () => {
-    const worksheetData = data.map(item => ({
+    const worksheetData = filteredData.map(item => ({
       Name: `${item.first_name} ${item.last_name}`,
       City: item.city,
       Speciality: item.speciality,
@@ -123,7 +134,17 @@ const DashboardScreen = () => {
 
   return (
     <div className="container mx-auto py-12 px-6">
-      <div className="flex justify-center gap-4 mb-8 my-10">
+      <div className="mb-8 my-10">
+        <input 
+          type="text" 
+          placeholder="Search by name..." 
+          value={searchTerm} 
+          onChange={handleSearchChange} 
+          className="border p-2 rounded w-full"
+        />
+      </div>
+
+      <div className="flex justify-center gap-4 mb-8">
         <button
           onClick={exportAllInscriptionsToPDF}
           className="bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition duration-200 flex items-center"
@@ -141,7 +162,7 @@ const DashboardScreen = () => {
       <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 px-4">
         {loading && <p className="text-center text-gray-500">Loading...</p>}
         {error && <p className="text-center text-red-500">{error}</p>}
-        {data.map((item) => (
+        {filteredData.map((item) => (
           <div key={item.id} className="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl border border-gray-200">
             <h2 className="text-2xl font-semibold mb-3 text-gray-800">{item.first_name.slice(0, 30) + (item.first_name.length > 30 ? '...' : '')} {item.last_name.slice(0, 30) + (item.last_name.length > 30 ? '...' : '')}</h2>
             <p className="text-gray-600"><strong>Ville:</strong> {item.city.slice(0, 30) + (item.city.length > 30 ? '...' : '')}</p>
@@ -150,19 +171,18 @@ const DashboardScreen = () => {
             <p className="text-gray-600"><strong>E-mail:</strong> {item.email.slice(0, 30) + (item.email.length > 30 ? '...' : '')}</p>
             <p className="text-gray-600"><strong>Participation en présentiel ?:</strong> {item.in_person ? 'Yes' : 'No'}</p>
             <p className="text-gray-600"><strong>Attestation nécessaire ?:</strong> {item.certificate ? 'Yes' : 'No'}</p>
-
             <div className="flex justify-between mt-4">
               <button
-                onClick={() => generatePDFForItem(item)}
-                className="bg-blue-500 text-white py-2 px-4 rounded-lg shadow hover:bg-blue-600 transition duration-200 mr-2 flex items-center"
+                onClick={() => exportToExcelForItem(item)}
+                className="text-blue-500 hover:text-blue-700"
               >
-                <strong>PDF</strong> <i className="fa-solid fa-file-pdf text-lg mx-2"></i>
+                <i className="fa-solid fa-file-excel"></i> Export to Excel
               </button>
               <button
-                onClick={() => exportToExcelForItem(item)}
-                className="bg-green-500 text-white py-2 px-4 rounded-lg shadow hover:bg-green-600 transition duration-200 flex items-center"
+                onClick={() => generatePDFForItem(item)}
+                className="text-red-500 hover:text-red-700"
               >
-                <strong>Excel</strong> <i className="fa-solid fa-table text-lg mx-2"></i>
+                <i className="fa-solid fa-file-pdf"></i> Export to PDF
               </button>
             </div>
           </div>
