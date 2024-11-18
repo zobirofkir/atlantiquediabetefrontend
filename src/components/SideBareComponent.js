@@ -48,7 +48,7 @@ const SideBareComponent = () => {
             <ul className="flex flex-col items-center space-y-6 justify-center mr-8 rounded-lg shadow-md">
               <li>
                 <a
-                  href="/"
+                  href="/dashboard"
                   className="flex items-center text-white font-bold hover:text-blue-600 md:text-4xl text-xl transition-all duration-200 transform hover:scale-105"
                 >
                   <svg
