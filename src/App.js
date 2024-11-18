@@ -5,6 +5,7 @@ import LoginScreen from './screens/LoginScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import store from './redux/store/store';
 import { Provider } from "react-redux";
+import AttestationScreen from './screens/AttestationScreen';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<LoginScreen />} />
             <Route path="/dashboard" element={<DashboardScreen />} />
+            <Route path="/attestations" element={<AttestationScreen />} />
           </Route>
         </Routes>
       </BrowserRouter>  
