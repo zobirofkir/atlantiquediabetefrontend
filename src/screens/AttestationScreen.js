@@ -29,7 +29,7 @@ const AttestationScreen = () => {
   };
 
   return (
-    <div className="container mx-auto py-12 px-6 mt-10">
+    <div className="container mx-auto py-12 px-10 mt-10">
       <h1 className="text-3xl font-extrabold text-gray-800 mb-8">Attestation Cards</h1>
 
       {loading && <p className="text-gray-500">Loading...</p>}
