@@ -4,7 +4,7 @@ import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import { inscriptionAction } from '../redux/actions/InscriptionAction';
 import { useDispatch, useSelector } from "react-redux";
-import HeaderComponent from '../components/HeaderComponent';
+import SideBareComponent from '../components/SideBareComponent';
 
 const DashboardScreen = () => { 
   const navigate = useNavigate();
@@ -103,7 +103,7 @@ const DashboardScreen = () => {
       });
 
       yPosition += 10;
-      if (yPosition > 280) { // Move to the next page if space is exhausted
+      if (yPosition > 280) { 
         doc.addPage();
         yPosition = 20;
       }
@@ -132,8 +132,8 @@ const DashboardScreen = () => {
   return (
     <div className='container mx-auto py-12 px-6'>
 
-    <HeaderComponent/>
-
+    <SideBareComponent/>
+    
       {/* Export Buttons */}
       <div className="flex md:justify-end justify-center mt-8 gap-4 ">
         <button
