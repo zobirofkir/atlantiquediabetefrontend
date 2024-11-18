@@ -147,7 +147,7 @@ const DashboardScreen = () => {
             <p className="text-gray-600"><strong>Ville:</strong> {item.city}</p>
             <p className="text-gray-600"><strong>Spécialité:</strong> {item.speciality}</p>
             <p className="text-gray-600"><strong>Téléphone:</strong> {item.phone}</p>
-            <p className="text-gray-600"><strong>E-mail:</strong> {item.email}</p>
+            <p className="text-gray-600"><strong>E-mail:</strong> {item.email.slice(0, 30) + (item.email.length > 30 ? '...' : '')}</p>
             <p className="text-gray-600"><strong>Participation en présentiel ?:</strong> {item.in_person ? 'Yes' : 'No'}</p>
             <p className="text-gray-600"><strong>Attestation nécessaire ?:</strong> {item.certificate ? 'Yes' : 'No'}</p>
 
