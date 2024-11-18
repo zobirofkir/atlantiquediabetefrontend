@@ -143,10 +143,10 @@ const DashboardScreen = () => {
         {error && <p className="text-center text-red-500">{error}</p>}
         {data.map((item) => (
           <div key={item.id} className="bg-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl border border-gray-200">
-            <h2 className="text-2xl font-semibold mb-3 text-gray-800">{item.first_name} {item.last_name}</h2>
-            <p className="text-gray-600"><strong>Ville:</strong> {item.city}</p>
-            <p className="text-gray-600"><strong>Spécialité:</strong> {item.speciality}</p>
-            <p className="text-gray-600"><strong>Téléphone:</strong> {item.phone}</p>
+            <h2 className="text-2xl font-semibold mb-3 text-gray-800">{item.first_name.slice(0, 30) + (item.first_name.length > 30 ? '...' : '')} {item.last_name.slice(0, 30) + (item.last_name.length > 30 ? '...' : '')}</h2>
+            <p className="text-gray-600"><strong>Ville:</strong> {item.city.slice(0, 30) + (item.city.length > 30 ? '...' : '')}</p>
+            <p className="text-gray-600"><strong>Spécialité:</strong> {item.speciality.slice(0, 30) + (item.speciality.length > 30 ? '...' : '')}</p>
+            <p className="text-gray-600"><strong>Téléphone:</strong> {item.phone.slice(0, 30) + (item.phone.length > 30 ? '...' : '')}</p>
             <p className="text-gray-600"><strong>E-mail:</strong> {item.email.slice(0, 30) + (item.email.length > 30 ? '...' : '')}</p>
             <p className="text-gray-600"><strong>Participation en présentiel ?:</strong> {item.in_person ? 'Yes' : 'No'}</p>
             <p className="text-gray-600"><strong>Attestation nécessaire ?:</strong> {item.certificate ? 'Yes' : 'No'}</p>
